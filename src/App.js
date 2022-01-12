@@ -11,6 +11,7 @@ export default function App() {
   const [bad, setBad] = useState(0);
 
   const countTotalFeedback = good + neutral + bad;
+
   const countPositiveFeedbackPercentage = (good * 100) / countTotalFeedback;
 
   const handleIncrement = (button) => {
@@ -25,7 +26,7 @@ export default function App() {
         setBad((prevState) => prevState + 1);
         break;
       default:
-        break;
+        return;
     }
   };
 
@@ -34,13 +35,13 @@ export default function App() {
       <Section title="Please leave a feedback">
         <FeedbackOptions onLeaveFeedback={handleIncrement} />
         <h2>Statistics</h2>
-        {countTotalFeedback ? (
+        {countTotalFeedback > 0 ? (
           <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
-            total={countTotalFeedback}
-            positivePercentage={countPositiveFeedbackPercentage}
+            countTotalFeedback={countTotalFeedback}
+            countPositiveFeedbackPercentage={countPositiveFeedbackPercentage}
           />
         ) : (
           <Notification />
